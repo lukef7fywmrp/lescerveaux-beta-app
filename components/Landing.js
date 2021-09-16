@@ -18,9 +18,14 @@ const Landing = () => {
   const [user] = useAuthState(auth);
 
   useEffect(() => {
-    if (user) {
-      navigation.navigate("HomeScreen");
-    }
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        navigation.navigate("HomeScreen");
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return (

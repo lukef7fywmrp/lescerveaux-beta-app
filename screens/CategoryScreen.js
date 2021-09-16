@@ -28,7 +28,7 @@ const CategoryScreen = ({ route }) => {
   return (
     <View style={{ backgroundColor: "#040714", flex: 1 }}>
       <ImageBackground
-        source={require("../assets/images/livres-bg.png")}
+        source={{ uri }}
         style={{
           width: "100%",
           height: "100%",

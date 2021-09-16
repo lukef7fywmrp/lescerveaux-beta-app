@@ -1,6 +1,5 @@
 import React from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import ExpoFastImage from "expo-fast-image";
 import tw from "tailwind-react-native-classnames";
 
 const Thumbnail = ({

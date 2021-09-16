@@ -22,6 +22,7 @@ import HomeCollection from "../components/HomeCollection";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Landing from "../components/Landing";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {
   const [categoriesSnapshot] = useCollectionOnce(
@@ -235,12 +236,11 @@ const HomeScreen = () => {
     ...doc.data(),
   }));
 
-  if (loading) return <Text>Loading...</Text>;
-
-  if (!user) return <Landing />;
+  // if (loading) return <Text>Loading...</Text>;
 
   return (
     <View style={{ backgroundColor: "#040714" }}>
+      <StatusBar style="light" />
       <ImageBackground
         source={require("../assets/images/background.png")}
         style={{ width: "100%", height: "100%" }}
@@ -267,46 +267,46 @@ const HomeScreen = () => {
 
         <View style={tw`px-6`}>
           {/* <HomeCollection
-              title="Les plus gros succès sur Les CERVEAUX"
-              results={lesplusgrossuccèssurlescerveaux}
-            />
+            title="Les plus gros succès sur Les CERVEAUX"
+            results={lesplusgrossuccèssurlescerveaux}
+          />
 
-            <HomeCollection title="Nouveautés" results={nouveautés} />
+          <HomeCollection title="Nouveautés" results={nouveautés} />
 
-            <HomeCollection
-              title="Les coups de coeur de 100LivresEn1Jour"
-              results={lescoupsdecoeurde100livresen1jour}
-            />
+          <HomeCollection
+            title="Les coups de coeur de 100LivresEn1Jour"
+            results={lescoupsdecoeurde100livresen1jour}
+          />
 
-            <HomeCollection
-              title="Tendances actuelles"
-              results={tendancesactuelles}
-            />
+          <HomeCollection
+            title="Tendances actuelles"
+            results={tendancesactuelles}
+          />
 
-            <HomeCollection
-              title="Notre sélection pour vous"
-              results={notresélectionpourvous}
-            />
+          <HomeCollection
+            title="Notre sélection pour vous"
+            results={notresélectionpourvous}
+          />
 
-            <HomeCollection
-              title="Top 10 sur l'application aujourd'hui"
-              results={top10surlapplicationaujourdhui}
-            />
+          <HomeCollection
+            title="Top 10 sur l'application aujourd'hui"
+            results={top10surlapplicationaujourdhui}
+          />
 
-            <HomeCollection
-              title="À rattraper maintenant"
-              results={arattrapermaintenant}
-            />
+          <HomeCollection
+            title="À rattraper maintenant"
+            results={arattrapermaintenant}
+          />
 
-            <HomeCollection
-              title="La boîte à outils de la communauté"
-              results={lesguidespratiquesdenadirDocs}
-            />
+          <HomeCollection
+            title="La boîte à outils de la communauté"
+            results={lesguidespratiquesdenadirDocs}
+          />
 
-            <HomeCollection
-              title="Les trésors de guerre"
-              results={lesTresorsDeGuerreDocs}
-            /> */}
+          <HomeCollection
+            title="Les trésors de guerre"
+            results={lesTresorsDeGuerreDocs}
+          /> */}
         </View>
       </ScrollView>
     </View>

@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { KeyboardAvoidingView } from "react-native";
 import { Button, Input } from "react-native-elements";
@@ -13,6 +13,17 @@ const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        navigation.navigate("HomeScreen");
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const Continue = () => {
     setStep(step + 1);
@@ -37,6 +48,7 @@ const LoginScreen = () => {
       return (
         <>
           <SafeAreaView style={[tw`flex-1`, { backgroundColor: "#1A1C29" }]}>
+            <StatusBar style="light" />
             <Button
               icon={<ChevronLeftIcon color="black" size={20} />}
               buttonStyle={tw`rounded-full w-7 h-7 bg-white m-4`}
