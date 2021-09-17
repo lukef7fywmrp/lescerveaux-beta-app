@@ -11,17 +11,27 @@ import { Button } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { useCollection, useDocument } from "react-firebase-hooks/firestore";
 
 const LandingScreen = () => {
   const navigation = useNavigation();
   const [user] = useAuthState(auth);
 
-  useEffect(() => {
-    if (user) {
-      navigation.navigate("HomeScreen");
-    }
-  }, []);
+  // const [snapshot] = useDocument(
+  //   db.collection("customers").where("email", "==", user?.email)
+  // );
+
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
+  //     if (authUser) {
+  //       navigation.navigate("Home");
+  //     }
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   return (
     <View style={{ backgroundColor: "#040714" }}>
@@ -66,6 +76,7 @@ const LandingScreen = () => {
               marginTop: 15,
             }}
             titleStyle={tw`font-semibold text-base`}
+            onPress={() => navigation.navigate("SignupScreen")}
           />
           <Text style={tw`text-white text-center font-semibold mt-4`}>
             Suivi par IbraTV, Greg Toussaint et MOTIVACTION{" "}

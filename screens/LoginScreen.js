@@ -14,16 +14,16 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
-        navigation.navigate("HomeScreen");
-      }
-    });
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
+  //     if (authUser) {
+  //       navigation.navigate("Home");
+  //     }
+  //   });
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   const Continue = () => {
     setStep(step + 1);
@@ -38,7 +38,7 @@ const LoginScreen = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.navigate("HomeScreen");
+        navigation.navigate("Home");
       })
       .catch((error) => alert(error.message));
   };
@@ -69,6 +69,8 @@ const LoginScreen = () => {
               <View>
                 <Input
                   keyboardAppearance="dark"
+                  keyboardType="email-address"
+                  autoCompleteType="email"
                   label="Log in with your email"
                   labelStyle={tw`text-white text-2xl font-semibold`}
                   inputContainerStyle={[
@@ -97,7 +99,7 @@ const LoginScreen = () => {
                 <Text style={tw`text-white mr-1`}>New to Lescerveaux?</Text>
                 <Button
                   onPress={() => navigation.navigate("SignupScreen")}
-                  title="SIGN UP"
+                  title="Sign up"
                   titleStyle={tw`text-sm font-semibold`}
                   buttonStyle={tw`p-0 bg-transparent`}
                 />
@@ -144,7 +146,9 @@ const LoginScreen = () => {
                 onSubmitEditing={login}
                 onChangeText={(text) => setPassword(text)}
               />
-              <Text style={tw`text-white px-2 -mt-4 text-xs mb-6`}>
+              <Text
+                style={tw`text-white px-2 -mt-4 text-xs mb-6 text-gray-400`}
+              >
                 (case sensitive)
               </Text>
 

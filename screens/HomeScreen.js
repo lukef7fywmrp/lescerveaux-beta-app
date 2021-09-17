@@ -21,7 +21,6 @@ import { auth, db } from "../firebase";
 import HomeCollection from "../components/HomeCollection";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Landing from "../components/Landing";
 import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {
@@ -31,6 +30,20 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const [user] = useAuthState(auth);
   const [loading, setLoading] = useState(false);
+
+  const [snapshot] = useDocument(
+    db.collection("customers").where("email", "==", user?.email)
+  );
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if (!authUser) {
+        navigation.navigate("LandingScreen");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     setLoading(true);

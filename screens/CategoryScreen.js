@@ -28,7 +28,7 @@ const CategoryScreen = ({ route }) => {
   return (
     <View style={{ backgroundColor: "#040714", flex: 1 }}>
       <ImageBackground
-        source={{ uri }}
+        source={{ uri: categoryPageData?.data().categoryPageImage }}
         style={{
           width: "100%",
           height: "100%",
