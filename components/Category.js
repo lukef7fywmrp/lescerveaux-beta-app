@@ -7,14 +7,14 @@ const Category = ({ img, title, id }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      style={tw`m-2`}
+      style={tw`m-2 border-2 border-white  border-opacity-50 rounded-3xl`}
       onPress={() => navigation.navigate("CategoryScreen", { id })}
     >
       <Image
         source={{ uri: img }}
         style={{
-          width: 100,
-          height: 64,
+          width: 140,
+          height: 75,
           resizeMode: "cover",
           borderRadius: 24,
         }}

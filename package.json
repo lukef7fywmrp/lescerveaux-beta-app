@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/poppins": "^0.2.0",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@react-native-community/masked-view": "0.1.10",
@@ -15,10 +16,11 @@
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
     "@reduxjs/toolkit": "^1.6.1",
-    "@stripe/stripe-js": "^1.17.1",
-    "@stripe/stripe-react-native": "^0.2.2",
     "expo": "~42.0.1",
+    "expo-app-loading": "^1.1.2",
+    "expo-av": "~9.2.3",
     "expo-fast-image": "^1.1.2",
+    "expo-font": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "firebase": "8.2.3",
     "react": "16.13.1",
@@ -38,7 +40,8 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12",
+    "react-native-video": "^5.1.1",
+    "react-native-web": "^0.17.1",
     "react-redux": "^7.2.5",
     "tailwind-react-native-classnames": "^1.4.3"
   },

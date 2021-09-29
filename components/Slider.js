@@ -6,7 +6,7 @@ import tw from "tailwind-react-native-classnames";
 const Slider = () => {
   return (
     <Slick
-      style={styles.wrapper}
+      style={tw``}
       showsButtons={true}
       autoplay
       height={120}
@@ -15,24 +15,25 @@ const Slider = () => {
     >
       <TouchableOpacity style={tw`mx-auto`}>
         <Image
-          source={require("../assets/images/banner.jpg")}
+          source={require("../assets/images/banner-1.jpg")}
           style={{
             width: 360,
             height: 120,
             resizeMode: "cover",
-            borderRadius: 5,
+            overflow: "hidden",
+            borderRadius: 24,
           }}
         />
       </TouchableOpacity>
 
       <TouchableOpacity style={tw`mx-auto`}>
         <Image
-          source={require("../assets/images/banner.jpg")}
+          source={require("../assets/images/banner-2.jpg")}
           style={{
             width: 360,
             height: 120,
             resizeMode: "cover",
-            borderRadius: 5,
+            borderRadius: 24,
           }}
         />
       </TouchableOpacity>

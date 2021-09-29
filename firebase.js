@@ -10,12 +10,13 @@ import {
 } from "@env";
 
 const firebaseConfig = {
-  apiKey: NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: NEXT_PUBLIC_FIREBASE_APP_ID,
+  apiKey: "AIzaSyC3W6c3-ssPK0ERDkSbsUh3mGLgrtp4Jl4",
+  authDomain: "lescerveaux-b3d29.firebaseapp.com",
+  projectId: "lescerveaux-b3d29",
+  storageBucket: "lescerveaux-b3d29.appspot.com",
+  messagingSenderId: "651023636951",
+  appId: "1:651023636951:web:8fbea38c6b568b36641392",
+  measurementId: "G-J9S1JNS1TG",
 };
 
 const app = !firebase.apps.length

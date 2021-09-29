@@ -22,18 +22,56 @@ import HomeCollection from "../components/HomeCollection";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { StatusBar } from "expo-status-bar";
+import { Button } from "react-native-elements";
+import AppLoading from "expo-app-loading";
+import {
+  useFonts,
+  Poppins_100Thin,
+  Poppins_100Thin_Italic,
+  Poppins_200ExtraLight,
+  Poppins_200ExtraLight_Italic,
+  Poppins_300Light,
+  Poppins_300Light_Italic,
+  Poppins_400Regular,
+  Poppins_400Regular_Italic,
+  Poppins_500Medium,
+  Poppins_500Medium_Italic,
+  Poppins_600SemiBold,
+  Poppins_600SemiBold_Italic,
+  Poppins_700Bold,
+  Poppins_700Bold_Italic,
+  Poppins_800ExtraBold,
+  Poppins_800ExtraBold_Italic,
+  Poppins_900Black,
+  Poppins_900Black_Italic,
+} from "@expo-google-fonts/poppins";
 
 const HomeScreen = () => {
+  let [fontsLoaded] = useFonts({
+    Poppins_100Thin,
+    Poppins_100Thin_Italic,
+    Poppins_200ExtraLight,
+    Poppins_200ExtraLight_Italic,
+    Poppins_300Light,
+    Poppins_300Light_Italic,
+    Poppins_400Regular,
+    Poppins_400Regular_Italic,
+    Poppins_500Medium,
+    Poppins_500Medium_Italic,
+    Poppins_600SemiBold,
+    Poppins_600SemiBold_Italic,
+    Poppins_700Bold,
+    Poppins_700Bold_Italic,
+    Poppins_800ExtraBold,
+    Poppins_800ExtraBold_Italic,
+    Poppins_900Black,
+    Poppins_900Black_Italic,
+  });
   const [categoriesSnapshot] = useCollectionOnce(
     db.collection("categories").orderBy("timestamp", "asc")
   );
   const navigation = useNavigation();
   const [user] = useAuthState(auth);
-  const [loading, setLoading] = useState(false);
-
-  const [snapshot] = useDocument(
-    db.collection("customers").where("email", "==", user?.email)
-  );
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -43,13 +81,6 @@ const HomeScreen = () => {
     });
 
     return unsubscribe;
-  }, []);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
   }, []);
 
   // Les plus gros succès sur Les CERVEAUX - LIVRES => lesleçonsvidéosprivéesdufondateur
@@ -251,42 +282,42 @@ const HomeScreen = () => {
 
   // if (loading) return <Text>Loading...</Text>;
 
-  return (
-    <View style={{ backgroundColor: "#040714" }}>
-      <StatusBar style="light" />
-      <ImageBackground
-        source={require("../assets/images/background.png")}
-        style={{ width: "100%", height: "100%" }}
-      ></ImageBackground>
-      <ScrollView style={tw`absolute h-full w-full`}>
-        <Image
-          source={require("../assets/images/logo.png")}
-          style={{
-            width: 130,
-            height: 100,
-            resizeMode: "contain",
-            alignSelf: "center",
-            marginLeft: 25,
-          }}
-        />
-        <Slider />
-        <View style={tw`flex-row flex-wrap justify-center mt-4`}>
-          {categoriesSnapshot?.docs.map((doc) => {
-            const id = doc.id;
-            const { title, img } = doc.data();
-            return <Category key={id} id={id} title={title} img={img} />;
-          })}
-        </View>
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <View style={{ backgroundColor: "#040714", flex: 1 }}>
+        <StatusBar style="light" />
 
-        <View style={tw`px-6`}>
-          {/* <HomeCollection
+        <ScrollView style={tw`absolute h-full w-full`}>
+          <Image
+            source={require("../assets/images/logo.png")}
+            style={{
+              width: 130,
+              height: 100,
+              resizeMode: "contain",
+              alignSelf: "center",
+              marginLeft: 25,
+            }}
+          />
+          <Slider />
+          <View style={tw`flex-row flex-wrap justify-center mt-4`}>
+            {categoriesSnapshot?.docs.map((doc) => {
+              const id = doc.id;
+              const { title, img } = doc.data();
+              return <Category key={id} id={id} title={title} img={img} />;
+            })}
+          </View>
+
+          <View style={tw`px-6`}>
+            {/* <HomeCollection
             title="Les plus gros succès sur Les CERVEAUX"
             results={lesplusgrossuccèssurlescerveaux}
-          />
+          /> */}
 
-          <HomeCollection title="Nouveautés" results={nouveautés} />
+            {/* <HomeCollection title="Nouveautés" results={nouveautés} /> */}
 
-          <HomeCollection
+            {/* <HomeCollection
             title="Les coups de coeur de 100LivresEn1Jour"
             results={lescoupsdecoeurde100livresen1jour}
           />
@@ -299,31 +330,32 @@ const HomeScreen = () => {
           <HomeCollection
             title="Notre sélection pour vous"
             results={notresélectionpourvous}
-          />
+          /> */}
 
-          <HomeCollection
+            {/* <HomeCollection
             title="Top 10 sur l'application aujourd'hui"
             results={top10surlapplicationaujourdhui}
-          />
+          /> */}
 
-          <HomeCollection
+            {/* <HomeCollection
             title="À rattraper maintenant"
             results={arattrapermaintenant}
-          />
+          /> */}
 
-          <HomeCollection
+            {/* <HomeCollection
             title="La boîte à outils de la communauté"
             results={lesguidespratiquesdenadirDocs}
-          />
+          /> */}
 
-          <HomeCollection
+            {/* <HomeCollection
             title="Les trésors de guerre"
             results={lesTresorsDeGuerreDocs}
           /> */}
-        </View>
-      </ScrollView>
-    </View>
-  );
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
 };
 
 export default HomeScreen;

@@ -17,11 +17,18 @@ import { Avatar } from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AccountScreen from "./screens/AccountScreen";
 import WatchlistScreen from "./screens/WatchlistScreen";
+import ResultScreen from "./screens/ResultScreen";
+import DiscordScreen from "./screens/DiscordScreen";
+import { HomeIcon, UserCircleIcon } from "react-native-heroicons/solid";
+import { auth } from "./firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 function HomeTabs() {
+  const [user] = useAuthState(auth);
+
   return (
     <Tab.Navigator
       barStyle={tw`bg-black bg-opacity-70 filter blur-lg`}
@@ -33,8 +40,16 @@ function HomeTabs() {
         component={HomeScreen}
         options={{
           tabBarLabel: "Home",
+          tabBarIcon: ({ color }) => <HomeIcon color={color} size={26} />,
+        }}
+      />
+      <Tab.Screen
+        name="DiscordScreen"
+        component={DiscordScreen}
+        options={{
+          tabBarLabel: "Discord",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="discord" color={color} size={26} />
           ),
         }}
       />
@@ -43,15 +58,7 @@ function HomeTabs() {
         component={ProfileScreen}
         options={{
           tabBarLabel: "Profile",
-          tabBarIcon: ({ color }) => (
-            <Avatar
-              size={32}
-              rounded
-              source={{
-                uri: "https://yt3.ggpht.com/ytc/AKedOLQVKtLvxTcroPgQLPJvSf7cVYgfThihxxNd_sFfLg=s900-c-k-c0x00ffffff-no-rj",
-              }}
-            />
-          ),
+          tabBarIcon: ({ color }) => <UserCircleIcon color={color} size={26} />,
         }}
       />
     </Tab.Navigator>
@@ -75,6 +82,7 @@ export default function App() {
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
             <Stack.Screen name="Home" component={HomeTabs} />
             <Stack.Screen name="CategoryScreen" component={CategoryScreen} />
+            <Stack.Screen name="ResultScreen" component={ResultScreen} />
             <Stack.Screen name="AccountScreen" component={AccountScreen} />
             <Stack.Screen name="WatchlistScreen" component={WatchlistScreen} />
           </Stack.Navigator>

@@ -11,7 +11,6 @@ import {
 import { Button } from "react-native-elements";
 import tw from "tailwind-react-native-classnames";
 import { auth, db } from "../firebase";
-import { StripeProvider } from "@stripe/stripe-react-native";
 
 const Plans = () => {
   const [products, setProducts] = useState([]);
