@@ -1,7 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import tw from 'tailwind-react-native-classnames'
-import Thumbnail from './Thumbnail'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import AppLoading from 'expo-app-loading'
 import {
   useFonts,
@@ -24,8 +22,9 @@ import {
   Poppins_900Black,
   Poppins_900Black_Italic,
 } from '@expo-google-fonts/poppins'
+import tw from 'tailwind-react-native-classnames'
 
-const HomeCollection = ({ results, title }) => {
+const Review = ({ date, header, text, name }) => {
   let [fontsLoaded] = useFonts({
     Poppins_100Thin,
     Poppins_100Thin_Italic,
@@ -51,43 +50,56 @@ const HomeCollection = ({ results, title }) => {
     return <AppLoading />
   } else {
     return (
-      <View style={tw`my-3`}>
+      <View style={tw`w-96 pl-16 pr-16 mx-auto`}>
+        <View style={tw`flex-row items-center w-full justify-between`}>
+          <Image
+            source={{
+              uri: 'https://www.londonfilmed.com/wp-content/uploads/2021/02/5c73e733fd0819a265904d0c_trustpilot-stars-2018.png',
+            }}
+            style={{
+              width: 100,
+              height: 30,
+              resizeMode: 'contain',
+            }}
+          />
+          <Text
+            style={[
+              tw`text-white opacity-60`,
+              { fontFamily: 'Poppins_500Medium', fontSize: 11 },
+            ]}
+          >
+            {date}
+          </Text>
+        </View>
         <Text
           style={[
-            tw`text-white font-semibold text-xs mb-2`,
+            tw`text-white text-xs mt-0.5`,
             { fontFamily: 'Poppins_600SemiBold' },
           ]}
         >
-          {title}
+          {header}
         </Text>
-        <ScrollView horizontal={true} style={tw`-ml-2`}>
-          {results?.map(
-            ({
-              resultId,
-              resultDescription,
-              resultPageImage,
-              resultTitle,
-              thumbnailImg,
-              categoryId,
-              categoryTitle,
-            }) => (
-              <Thumbnail
-                key={resultId}
-                categoryTitle={categoryTitle}
-                resultId={resultId}
-                categoryId={categoryId}
-                thumbnailImg={thumbnailImg}
-                resultTitle={resultTitle}
-                maxWidth
-              />
-            )
-          )}
-        </ScrollView>
+        <Text
+          style={[
+            tw`text-white text-xs mt-1`,
+            { fontFamily: 'Poppins_400Regular' },
+          ]}
+        >
+          {text}
+        </Text>
+        <Text
+          style={[
+            tw`text-white text-xs mt-1 opacity-60`,
+            { fontFamily: 'Poppins_400Regular' },
+          ]}
+        >
+          {name}
+        </Text>
       </View>
     )
   }
 }
 
-export default HomeCollection
+export default Review
 
 const styles = StyleSheet.create({})

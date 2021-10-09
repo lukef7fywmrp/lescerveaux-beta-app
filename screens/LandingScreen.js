@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,15 +7,15 @@ import {
   ImageBackground,
   Image,
   ScrollView,
-} from "react-native";
-import { Button } from "react-native-elements";
-import tw from "tailwind-react-native-classnames";
-import { useNavigation } from "@react-navigation/native";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase";
-import { useCollection, useDocument } from "react-firebase-hooks/firestore";
-import { StatusBar } from "expo-status-bar";
-import AppLoading from "expo-app-loading";
+} from 'react-native'
+import { Button } from 'react-native-elements'
+import tw from 'tailwind-react-native-classnames'
+import { useNavigation } from '@react-navigation/native'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth, db } from '../firebase'
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
+import { StatusBar } from 'expo-status-bar'
+import AppLoading from 'expo-app-loading'
 import {
   useFonts,
   Poppins_100Thin,
@@ -36,7 +36,8 @@ import {
   Poppins_800ExtraBold_Italic,
   Poppins_900Black,
   Poppins_900Black_Italic,
-} from "@expo-google-fonts/poppins";
+} from '@expo-google-fonts/poppins'
+import { BadgeCheckIcon } from 'react-native-heroicons/solid'
 
 const LandingScreen = () => {
   let [fontsLoaded] = useFonts({
@@ -58,9 +59,9 @@ const LandingScreen = () => {
     Poppins_800ExtraBold_Italic,
     Poppins_900Black,
     Poppins_900Black_Italic,
-  });
-  const navigation = useNavigation();
-  const [user] = useAuthState(auth);
+  })
+  const navigation = useNavigation()
+  const [user] = useAuthState(auth)
 
   // const [snapshot] = useDocument(
   //   db.collection("customers").where("email", "==", user?.email)
@@ -69,110 +70,133 @@ const LandingScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        navigation.navigate("Home");
+        navigation.navigate('Home')
       }
-    });
+    })
     return () => {
-      unsubscribe();
-    };
-  }, []);
+      unsubscribe()
+    }
+  }, [])
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
-      <View style={{ backgroundColor: "#040714", flex: 1 }}>
+      <View style={{ backgroundColor: '#040714', flex: 1 }}>
         <StatusBar style="light" />
 
         <ScrollView style={tw`absolute h-full w-full`}>
           <ImageBackground
-            source={require("../assets/images/landing-bg.png")}
-            style={{ width: "100%", height: "100%" }}
+            source={require('../assets/images/landing-bg.png')}
+            style={{ width: '100%', height: '100%' }}
           >
-            <View style={tw`bg-black bg-opacity-70 rounded-lg mx-5 mt-28 p-5`}>
+            <View
+              style={tw`bg-black bg-opacity-75 rounded-lg mx-5 mt-28 p-5 pb-2.5`}
+            >
               <Image
-                source={require("../assets/images/logo.png")}
+                source={require('../assets/images/logo.png')}
                 style={{
-                  width: 130,
-                  height: 100,
-                  resizeMode: "contain",
-                  alignSelf: "center",
-                  marginLeft: 25,
+                  width: 95,
+                  height: 95,
+                  resizeMode: 'contain',
+                  alignSelf: 'center',
                 }}
               />
               <Text
                 style={[
                   tw`text-white italic text-center mb-2`,
-                  { fontFamily: "Poppins_600SemiBold_Italic" },
+                  { fontFamily: 'Poppins_400Regular_Italic' },
                 ]}
               >
                 <Text>
-                  "J’ai gagné plus d’argent en lisant 10 livres qu’en dépensant{" "}
+                  « J’ai gagné plus d’argent en lisant 10 livres qu’en dépensant{' '}
                 </Text>
                 <Text style={tw`font-bold`}>10.000€</Text>
-                <Text> de formations."</Text>
+                <Text> de formations. »</Text>
               </Text>
 
-              <Text style={[tw`text-white text-center `]}>
+              <Text style={[tw`text-white text-center`]}>
                 <Text
-                  style={[tw`font-bold `, { fontFamily: "Poppins_700Bold" }]}
+                  style={[tw`font-bold`, { fontFamily: 'Poppins_600SemiBold' }]}
                 >
-                  - Nadir
+                  - Nadir MESSAÏ
                 </Text>
-                <Text
-                  style={[
-                    tw`italic`,
-                    { fontFamily: "Poppins_600SemiBold_Italic" },
-                  ]}
-                >
+                <Text style={[tw`italic`, { fontFamily: 'Poppins_500Medium' }]}>
                   , Fondateur des Cerveaux.​​
                 </Text>
               </Text>
             </View>
 
-            <View style={tw`px-8 py-4 pb-24`}>
-              <Text
-                style={[
-                  tw`text-white text-center font-semibold`,
-                  { fontFamily: "Poppins_600SemiBold" },
-                ]}
-              >
-                Accède maintenant aux secrets de 375 livres en quelques minutes
-                par jour
-              </Text>
+            <View style={tw`px-8 pb-24 items-center`}>
               <Button
-                title="JE COMMENCE MON ESSAI GRATUIT"
+                title="JE COMMENCE GRATUITEMENT"
                 buttonStyle={{
-                  backgroundColor: "#00CC00",
-                  marginTop: 15,
+                  backgroundColor: '#0485EE',
+                  marginTop: 16,
+                  width: 265,
+                  borderRadius: 7,
                 }}
                 titleStyle={[
                   tw`font-semibold text-base`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
-                onPress={() => navigation.navigate("SignupScreen")}
+                onPress={() => navigation.navigate('SignupScreen')}
               />
-              <Text
-                style={[
-                  tw`text-white text-center font-semibold mt-4`,
-                  { fontFamily: "Poppins_600SemiBold" },
-                ]}
+              <View
+                style={tw`flex-row items-center flex-wrap justify-center mt-6 mb-3`}
               >
-                Suivi par IbraTV, Greg Toussaint et MOTIVACTION{" "}
-              </Text>
+                <View style={tw`flex-row items-center`}>
+                  <Text
+                    style={[
+                      tw`text-white text-center font-semibold mr-0.5`,
+                      { fontFamily: 'Poppins_600SemiBold' },
+                    ]}
+                  >
+                    Suivi par IbraTV
+                  </Text>
+                  <BadgeCheckIcon size={15} />
+                  <Text style={tw`text-white`}>,</Text>
+                </View>
+
+                <View style={tw`flex-row items-center`}>
+                  <Text
+                    style={[
+                      tw`text-white text-center font-semibold mr-0.5`,
+                      { fontFamily: 'Poppins_600SemiBold' },
+                    ]}
+                  >
+                    {' '}
+                    Greg Toussaint
+                  </Text>
+                  <BadgeCheckIcon size={15} />
+                  <Text style={tw`text-white`}>,</Text>
+                </View>
+
+                <View style={tw`flex-row items-center`}>
+                  <Text
+                    style={[
+                      tw`text-white text-center font-semibold mr-0.5`,
+                      { fontFamily: 'Poppins_600SemiBold' },
+                    ]}
+                  >
+                    et MOTIVACTION
+                  </Text>
+                  <BadgeCheckIcon size={15} />
+                </View>
+              </View>
               <Image
-                source={require("../assets/images/trustpilot.png")}
+                source={require('../assets/images/trustpilot.png')}
                 style={{
                   width: 130,
-                  height: 100,
-                  resizeMode: "contain",
-                  alignSelf: "center",
+                  height: 80,
+                  resizeMode: 'contain',
+                  alignSelf: 'center',
                 }}
               />
               <Text
                 style={[
                   tw`text-white text-center font-semibold`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
               >
                 Trustscore 4.8 | 160 avis
@@ -181,20 +205,20 @@ const LandingScreen = () => {
           </ImageBackground>
         </ScrollView>
         <Button
-          title="LOG IN"
+          title="ME CONNECTER"
           buttonStyle={tw`bg-black border-t-2 border-gray-700 rounded-none`}
           containerStyle={tw`rounded-none mt-auto`}
           titleStyle={[
             tw`font-semibold text-base tracking-wider py-2`,
-            { fontFamily: "Poppins_600SemiBold" },
+            { fontFamily: 'Poppins_600SemiBold' },
           ]}
-          onPress={() => navigation.navigate("LoginScreen")}
+          onPress={() => navigation.navigate('LoginScreen')}
         />
       </View>
-    );
+    )
   }
-};
+}
 
-export default LandingScreen;
+export default LandingScreen
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})

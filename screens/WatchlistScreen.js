@@ -12,3 +12,4 @@ const WatchlistScreen = () => {
 export default WatchlistScreen;
 
 const styles = StyleSheet.create({});
+p

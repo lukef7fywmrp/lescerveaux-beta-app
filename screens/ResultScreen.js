@@ -1,36 +1,36 @@
-import React, { useRef, useState } from "react";
-import { useCollection, useDocument } from "react-firebase-hooks/firestore";
-import { Image, SafeAreaView } from "react-native";
+import React, { useRef, useState } from 'react'
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
+import { Image, SafeAreaView } from 'react-native'
 import {
   ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import tw from "tailwind-react-native-classnames";
-import { db } from "../firebase";
-import { Button } from "react-native-elements";
+} from 'react-native'
+import tw from 'tailwind-react-native-classnames'
+import { db } from '../firebase'
+import { Button } from 'react-native-elements'
 import {
   PlayIcon,
   PlusIcon,
   ChevronLeftIcon,
   ThumbUpIcon,
   PencilAltIcon,
-} from "react-native-heroicons/solid";
+} from 'react-native-heroicons/solid'
 import {
   ThumbUpIcon as ThumbUpIconOutline,
   ClockIcon as ClockIconOutline,
   ShareIcon as ShareIconOutline,
   PencilAltIcon as PencilAltIconOutline,
   DotsHorizontalIcon,
-} from "react-native-heroicons/outline";
-import { useNavigation } from "@react-navigation/native";
-import Thumbnail from "../components/Thumbnail";
-import data from "../data.json";
-import { StatusBar } from "expo-status-bar";
-import { Video, AVPlaybackStatus } from "expo-av";
-import AppLoading from "expo-app-loading";
+} from 'react-native-heroicons/outline'
+import { useNavigation } from '@react-navigation/native'
+import Thumbnail from '../components/Thumbnail'
+import data from '../data.json'
+import { StatusBar } from 'expo-status-bar'
+import { Video, AVPlaybackStatus } from 'expo-av'
+import AppLoading from 'expo-app-loading'
 import {
   useFonts,
   Poppins_100Thin,
@@ -51,7 +51,7 @@ import {
   Poppins_800ExtraBold_Italic,
   Poppins_900Black,
   Poppins_900Black_Italic,
-} from "@expo-google-fonts/poppins";
+} from '@expo-google-fonts/poppins'
 
 const ResultScreen = ({ route }) => {
   let [fontsLoaded] = useFonts({
@@ -73,55 +73,55 @@ const ResultScreen = ({ route }) => {
     Poppins_800ExtraBold_Italic,
     Poppins_900Black,
     Poppins_900Black_Italic,
-  });
-  const navigation = useNavigation();
-  const [value, setValue] = useState(1);
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [loadingAnimation, setLoadingAnimation] = useState(false);
-  const video = useRef(null);
+  })
+  const navigation = useNavigation()
+  const [value, setValue] = useState(1)
+  const [showPlayer, setShowPlayer] = useState(false)
+  const [loadingAnimation, setLoadingAnimation] = useState(false)
+  const video = useRef(null)
 
   const [resultSnapshot] = useDocument(
     db
-      .collection("categories")
+      .collection('categories')
       .doc(route.params.categoryTitle)
-      .collection("categoryPageData")
+      .collection('categoryPageData')
       .doc(route.params.categoryId)
-      .collection("results")
+      .collection('results')
       .doc(route.params.resultId)
-  );
+  )
 
   const [resultsSnapshot] = useCollection(
     db
-      .collection("categories")
+      .collection('categories')
       .doc(route.params.categoryTitle)
-      .collection("categoryPageData")
+      .collection('categoryPageData')
       .doc(route.params.categoryId)
-      .collection("results")
-  );
+      .collection('results')
+  )
 
   const [realtimeVideos] = useCollection(
     db
-      .collection("categories")
+      .collection('categories')
       .doc(route.params.categoryTitle)
-      .collection("categoryPageData")
+      .collection('categoryPageData')
       .doc(route.params.categoryId)
-      .collection("results")
+      .collection('results')
       .doc(route.params.resultId)
-      .collection("videos")
-  );
+      .collection('videos')
+  )
 
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return <AppLoading />
   } else {
     return (
       <SafeAreaView
-        style={{ backgroundColor: "#040714", flex: 1, position: "relative" }}
+        style={{ backgroundColor: '#040714', flex: 1, position: 'relative' }}
       >
         <StatusBar style="light" hidden />
         <View style={tw`absolute w-full h-52 z-50`}>
           {realtimeVideos?.docs.map((doc) => {
-            const videoId = doc.id;
-            const { videoTitle, videoSrc } = doc.data();
+            const videoId = doc.id
+            const { videoTitle, videoSrc } = doc.data()
 
             return (
               <Video
@@ -132,10 +132,10 @@ const ResultScreen = ({ route }) => {
                 resizeMode="cover"
                 isLooping
                 source={{
-                  uri: "https://res.cloudinary.com/lescerveaux-com/video/private/s--jfyBXAIE--/v1632296314/Lucas_vid%C3%A9o_n_2_q2tbjl.mp4",
+                  uri: videoSrc,
                 }}
               />
-            );
+            )
           })}
         </View>
 
@@ -150,7 +150,7 @@ const ResultScreen = ({ route }) => {
             <Text
               style={[
                 tw`text-white font-bold text-lg capitalize`,
-                { fontFamily: "Poppins_700Bold" },
+                { fontFamily: 'Poppins_700Bold' },
               ]}
             >
               {resultSnapshot?.data().resultTitle}
@@ -162,7 +162,7 @@ const ResultScreen = ({ route }) => {
                 buttonStyle={tw`bg-transparent p-0 flex-col mr-8`}
                 titleStyle={[
                   tw`text-sm`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
                 title="24"
               />
@@ -173,7 +173,7 @@ const ResultScreen = ({ route }) => {
                 buttonStyle={tw`bg-transparent p-0 flex-col mr-8`}
                 titleStyle={[
                   tw`text-sm`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
                 title="Watchlist"
               />
@@ -184,7 +184,7 @@ const ResultScreen = ({ route }) => {
                 buttonStyle={tw`bg-transparent p-0 flex-col mr-8`}
                 titleStyle={[
                   tw`text-sm`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
                 title="Share"
               />
@@ -195,7 +195,7 @@ const ResultScreen = ({ route }) => {
                 buttonStyle={tw`bg-transparent p-0 flex-col mr-8`}
                 titleStyle={[
                   tw`text-sm`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
                 title="Notes"
               />
@@ -206,7 +206,7 @@ const ResultScreen = ({ route }) => {
                 buttonStyle={tw`bg-transparent p-0 flex-col mr-8`}
                 titleStyle={[
                   tw`text-sm`,
-                  { fontFamily: "Poppins_600SemiBold" },
+                  { fontFamily: 'Poppins_600SemiBold' },
                 ]}
                 title="More"
               />
@@ -215,7 +215,7 @@ const ResultScreen = ({ route }) => {
 
             <View style={tw`p-2`}>
               <Text
-                style={[tw`text-white`, { fontFamily: "Poppins_600SemiBold" }]}
+                style={[tw`text-white`, { fontFamily: 'Poppins_600SemiBold' }]}
               >
                 Comments
               </Text>
@@ -235,7 +235,7 @@ const ResultScreen = ({ route }) => {
                       thumbnailImg,
                       categoryId,
                       categoryTitle,
-                    } = filteredDoc.data();
+                    } = filteredDoc.data()
                     return (
                       <Thumbnail
                         key={resultId}
@@ -246,17 +246,17 @@ const ResultScreen = ({ route }) => {
                         categoryTitle={categoryTitle}
                         resultPage
                       />
-                    );
+                    )
                   })}
               </>
             )}
           </View>
         </ScrollView>
       </SafeAreaView>
-    );
+    )
   }
-};
+}
 
-export default ResultScreen;
+export default ResultScreen
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({})
